@@ -43,7 +43,7 @@ export default class Navbar extends Component {
                         Connexion
                     </NavbarItem>
                     {display_modal && 
-                        <Modal>YOLO !</Modal>
+                        <Modal onClose={this.toggleModal}>YOLO !</Modal>
                     }
                 </RightPart>
             </MainContainer>

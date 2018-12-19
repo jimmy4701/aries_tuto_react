@@ -8,12 +8,19 @@ export default class Modal extends Component {
 
     }
 
+    closeModal = () => {
+        if(this.props.onClose){
+            this.props.onClose()
+        }
+    }
 
     render(){
+        const {onClose} = this.props
         return(
             <Portal>
                 <MainContainer>
-                    <Container>
+                    <Container className="animated fadeInUp">
+                        {onClose && <CloseIcon src="https://image.flaticon.com/icons/svg/148/148766.svg" onClick={this.closeModal}/>}
                         {this.props.children}
                     </Container>
                 </MainContainer>
@@ -36,6 +43,7 @@ const MainContainer = styled.div`
 `
 
 const Container = styled.div`
+    position: relative;
     background-color: white;
     border-radius: 0.5em;
     height: 30em;
@@ -43,4 +51,13 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+`
+
+const CloseIcon = styled.img`
+    position: absolute;
+    top: -1em;
+    right: -1em;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
 `
