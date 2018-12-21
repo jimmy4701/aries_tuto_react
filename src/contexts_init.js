@@ -44,5 +44,9 @@ export class MoviesHandler {
         }
     }
 
+    isFavorite = (movie_id) => {
+        return this.movies.indexOf(movie_id) > -1
+    }
+
 
 }
