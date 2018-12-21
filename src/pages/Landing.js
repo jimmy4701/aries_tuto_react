@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react'
-import { Splitter } from '../components'
-import { movies } from '../database/movies'
+import { Splitter, MovieHeader } from '../components'
+import { movies, categories } from '../database'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export default class Landing extends Component {
 
@@ -38,44 +39,40 @@ export default class Landing extends Component {
 
     render(){
         const movie = movies.find(o => o.highlight == true)
+
         return(
             <Fragment>
-                <Header>
-                    <TitleContainer>
-                        <SubTitle>UN FILM <strong>NETFLIX</strong></SubTitle>
-                        <Title>{movie.title}</Title>
-                    </TitleContainer>
-                    <MainFrame onload="this.width=screen.width;this.height=screen.height;" src={movie.embed + "?autoplay=1"} frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></MainFrame>
-                </Header>
-                
+                <MovieHeader movie={movie}/>
+                {
+                    categories.map(category => {
+                        const filtered_movies = movies.filter(m => m.category_id == category.id)
+                        return(
+                            <div>
+                                <h1>{category.name}</h1>
+                                {filtered_movies.map(m => {
+                                    return (
+                                        <Link to={"/movie/" + m.id}>
+                                            <VideoPartial></VideoPartial>
+                                        </Link>
+                                    )
+                                })}
+                            </div>
+                        )
+                        
+                    })
+                }             
             </Fragment>
         )
     }
 }
 
-const Header = styled.div`
-    height: 100vh;
-    position: relative;
-`
-
-const MainFrame = styled.iframe`
-    width: 100%;
-    height: 100%;
-`
-
-const TitleContainer = styled.div`
-    position: absolute;
-    top: 21em;
-    left: 5em;
-`
-
-const SubTitle = styled.h1`
-    color: white;
-    font-size: 3em;
-`
-
-const Title = styled.h1`
-    color: white;
-    font-size: 6em;
-    max-width: 50%;
+const VideoPartial = styled.div`
+    background-image: url('https://2.bp.blogspot.com/-mCe2ITqsRGg/WuAgV1RXhjI/AAAAAAAApvw/avw7E14EHRgplDVpfJPaOOi14-tWX1qcgCLcBGAs/s1600/youtube-logo-1.jpg');
+    background-position: center;
+    background-size: cover;
+    height: 7em;
+    width: 14em;
+    display: inline-block;
+    margin: 0.5em;
+    cursor: pointer;
 `
