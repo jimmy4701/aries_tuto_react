@@ -6,6 +6,7 @@ import Portal from './Portal'
 import Modal from './Modal'
 import MovieHeader from './MovieHeader'
 import CategoryForm from './CategoryForm'
+import MovieForm from './MovieForm'
 
 export {
     Navbar,
@@ -15,5 +16,6 @@ export {
     Portal,
     Modal,
     MovieHeader,
-    CategoryForm
+    CategoryForm,
+    MovieForm
 }

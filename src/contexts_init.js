@@ -53,6 +53,8 @@ class MoviesHandler {
     }
 
 
+    addMovie = (movie) => this.movies.push(movie)
+
 }
 
 class CategoriesHandler {

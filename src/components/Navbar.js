@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { Modal, SigninForm, CategoryForm } from '../components'
+import { Modal, SigninForm, CategoryForm, MovieForm } from '../components'
 import { withUser } from '../contexts'
 
 class Navbar extends Component {
@@ -37,7 +37,7 @@ class Navbar extends Component {
     }
 
     render(){
-        const {scroll, signin_modal, category_modal} = this.state
+        const {scroll, signin_modal, category_modal, movie_modal} = this.state
         const {userAuth} = this.props
 
         return(
@@ -54,6 +54,9 @@ class Navbar extends Component {
                     </CustomLink>
                     <NavbarItem onClick={() => this.toggleState('category_modal')}>
                         Créer catégorie
+                    </NavbarItem>
+                    <NavbarItem onClick={() => this.toggleState('movie_modal')}>
+                        Ajouter film
                     </NavbarItem>
                 </LeftPart>
                 <RightPart>
@@ -74,6 +77,11 @@ class Navbar extends Component {
                     {category_modal && 
                         <Modal onClose={() => this.toggleState('category_modal')}>
                             <CategoryForm onFormSubmit={() => this.toggleState('category_modal')}/>
+                        </Modal>
+                    }
+                    {movie_modal && 
+                        <Modal onClose={() => this.toggleState('movie_modal')}>
+                            <MovieForm onFormSubmit={() => this.toggleState('movie_modal')}/>
                         </Modal>
                     }
                 </RightPart>
@@ -119,6 +127,7 @@ const CustomLink = styled(Link)`
 const NavbarItem = styled.span`
     cursor: pointer;
     color: white;
+    margin: 0 1em;
 `
 
 const Logo = styled.img`
