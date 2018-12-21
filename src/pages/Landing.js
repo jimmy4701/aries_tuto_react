@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Splitter, MovieHeader } from '../components'
-import { categories } from '../database'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { withMovies, withUser } from '../contexts';
+import { withMovies, withUser, withCategories } from '../contexts';
 
 class Landing extends Component {
 
@@ -39,13 +38,29 @@ class Landing extends Component {
 
 
     render(){
-        const {movies_context: {movies}, userAuth: {user}} = this.props
+        const {
+            movies_context,
+            movies_context: {movies, favorites},
+            userAuth: {user},
+            categories_context: {categories}
+        } = this.props
         const movie = movies.find(o => o.highlight == true)
+        
+        console.log('favoris', movies_context)
 
         return(
             <Fragment>
                 <MovieHeader movie={movie}/>
-                <h1>{user.authenticated ? user.username : "Connectez-vous"}</h1>
+                {favorites.length > 0 &&
+                    <div>
+                        <h1>Favoris</h1>
+                        {favorites.map(favorite_id => 
+                            <Link to={"/movie/" + favorite_id}>
+                                <VideoPartial></VideoPartial>
+                            </Link>
+                        )}
+                    </div>
+                }
                 {
                     categories.map(category => {
                         const filtered_movies = movies.filter(m => m.category_id == category.id)
@@ -87,4 +102,4 @@ const VideoPartial = styled.div`
     }
 `
 
-export default withUser(withMovies(Landing))
+export default withUser(withCategories(withMovies(Landing)))

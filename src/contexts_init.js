@@ -1,7 +1,11 @@
 // Movie handler
-import { movies } from './database'
+import React from 'react'
+import { movies, categories } from './database'
+import { UserContext, MoviesContext } from './contexts'
+import App from './App'
+import CategoriesContext from './contexts/CategoriesContext';
 
-export class UserAuth {
+class UserAuth {
     constructor(){
         this.user = {
             authenticated: false,
@@ -29,9 +33,9 @@ export class UserAuth {
 
 
 
-export class MoviesHandler {
+class MoviesHandler {
     constructor(){
-        this.movies = movies
+        this.movies = movies // Initialisation Firebase simulée
         this.favorites = []
     }
 
@@ -50,3 +54,40 @@ export class MoviesHandler {
 
 
 }
+
+class CategoriesHandler {
+    constructor(){
+        this.categories = categories
+    }
+}
+
+
+
+
+export const WithUserApp = (props) => (
+    <UserContext.Provider value={new UserAuth()}>
+        {props.children}
+    </UserContext.Provider>
+)
+
+export const WithMoviesApp = (props) => (
+    <MoviesContext.Provider value={new MoviesHandler()}>
+        {props.children}
+    </MoviesContext.Provider>
+)
+
+export const WithCategoriesApp = (props) => (
+    <CategoriesContext.Provider value={new CategoriesHandler()}>
+        {props.children}
+    </CategoriesContext.Provider>
+)
+
+export const DefaultContextApp = () => (
+    <WithUserApp>
+        <WithCategoriesApp>
+            <WithMoviesApp>
+                <App />
+            </WithMoviesApp>
+        </WithCategoriesApp>
+    </WithUserApp>
+)
