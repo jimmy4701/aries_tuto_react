@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { Modal, SigninForm } from '../components'
+import { Modal, SigninForm, CategoryForm } from '../components'
 import { withUser } from '../contexts'
 
 class Navbar extends Component {
@@ -27,8 +27,8 @@ class Navbar extends Component {
         })
     }
 
-    toggleModal = () => this.setState({
-        display_modal: !this.state.display_modal
+    toggleState = (name) => this.setState({
+        [name]: !this.state[name]
     })
 
     logout = async () => {
@@ -37,7 +37,7 @@ class Navbar extends Component {
     }
 
     render(){
-        const {scroll, display_modal} = this.state
+        const {scroll, signin_modal, category_modal} = this.state
         const {userAuth} = this.props
 
         return(
@@ -52,9 +52,9 @@ class Navbar extends Component {
                     <CustomLink scroll={scroll} to="/apropos">
                         A propos
                     </CustomLink>
-                    <CustomLink scroll={scroll} to="/contact">
-                        Contact
-                    </CustomLink>
+                    <NavbarItem onClick={() => this.toggleState('category_modal')}>
+                        Créer catégorie
+                    </NavbarItem>
                 </LeftPart>
                 <RightPart>
                     {userAuth.user.authenticated ?
@@ -62,13 +62,18 @@ class Navbar extends Component {
                             Déconnexion
                         </NavbarItem>
                     :
-                        <NavbarItem onClick={this.toggleModal}>
+                        <NavbarItem onClick={() => this.toggleState('signin_modal')}>
                             Connexion
                         </NavbarItem>
                     }
-                    {display_modal && 
-                        <Modal onClose={this.toggleModal}>
-                            <SigninForm onFormSubmit={this.toggleModal}/>
+                    {signin_modal && 
+                        <Modal onClose={() => this.toggleState('signin_modal')}>
+                            <SigninForm onFormSubmit={() => this.toggleState('signin_modal')}/>
+                        </Modal>
+                    }
+                    {category_modal && 
+                        <Modal onClose={() => this.toggleState('category_modal')}>
+                            <CategoryForm onFormSubmit={() => this.toggleState('category_modal')}/>
                         </Modal>
                     }
                 </RightPart>
@@ -111,7 +116,7 @@ const CustomLink = styled(Link)`
     color: white;
 `
 
-const NavbarItem = styled.div`
+const NavbarItem = styled.span`
     cursor: pointer;
     color: white;
 `

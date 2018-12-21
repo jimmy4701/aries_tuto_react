@@ -59,6 +59,8 @@ class CategoriesHandler {
     constructor(){
         this.categories = categories
     }
+
+    addCategory = (category) => this.categories.push(category)
 }
 
 

@@ -5,6 +5,7 @@ import Splitter from './Splitter'
 import Portal from './Portal'
 import Modal from './Modal'
 import MovieHeader from './MovieHeader'
+import CategoryForm from './CategoryForm'
 
 export {
     Navbar,
@@ -13,5 +14,6 @@ export {
     Splitter,
     Portal,
     Modal,
-    MovieHeader
+    MovieHeader,
+    CategoryForm
 }
