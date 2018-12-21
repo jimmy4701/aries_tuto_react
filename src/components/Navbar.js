@@ -31,8 +31,8 @@ class Navbar extends Component {
         display_modal: !this.state.display_modal
     })
 
-    logout = () => {
-        this.props.userAuth.logout()
+    logout = async () => {
+        const user = await this.props.userAuth.logout()
         this.setState({})
     }
 
