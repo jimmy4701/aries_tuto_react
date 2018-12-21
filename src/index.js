@@ -3,40 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { UserContext } from './contexts'
+import { UserContext, MoviesContext } from './contexts'
+import { UserAuth, MoviesHandler } from './contexts_init'
 
-class UserAuth {
-    constructor(){
-        this.user = {
-            authenticated: false,
-            username: null
-        }
-    }
-
-    signIn = (user) => {
-        this.user = {
-            username: user.username,
-            authenticated: true
-        }
-        return this.user
-    }
-
-    logout = () => {
-        this.user = {
-            username: null,
-            authenticated: false
-        }
-        console.log('userContext', this.user)
-        return this.user
-    }
-}
-
-const WithUserApp = () => (
+const WithUserApp = (props) => (
     <UserContext.Provider value={new UserAuth()}>
-        <App />
+        {props.children}
     </UserContext.Provider>
 )
 
-ReactDOM.render(<WithUserApp />, document.getElementById('root'));
+const WithMoviesApp = (props) => (
+    <MoviesContext.Provider value={new MoviesHandler()}>
+        {props.children}
+    </MoviesContext.Provider>
+)
+
+ReactDOM.render(
+<WithUserApp>
+    <WithMoviesApp>
+        <App />
+    </WithMoviesApp>
+</WithUserApp>, document.getElementById('root'));
 
 serviceWorker.unregister();

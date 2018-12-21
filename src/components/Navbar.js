@@ -108,11 +108,12 @@ const CustomLink = styled(Link)`
     margin: 0 1em;
     font-weight: ${props => props.main ? "900" : ""};
     font-size: ${props => props.main ? "1.2em" : ""};
-    color: ${props => props.scroll ? "white" : ""};
+    color: white;
 `
 
 const NavbarItem = styled.div`
     cursor: pointer;
+    color: white;
 `
 
 const Logo = styled.img`

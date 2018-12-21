@@ -1,7 +1,10 @@
 import UserContext, { withUser } from './UserContext'
+import MoviesContext, { withMovies } from './MoviesContext'
 
 
 export {
     UserContext,
-    withUser
+    withUser,
+    MoviesContext,
+    withMovies
 }

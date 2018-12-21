@@ -2,17 +2,18 @@ import React, {Component, Fragment, Suspense} from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Landing, Contact, Signup, Movie } from './pages'
 import { Navbar } from './components'
+import { withUser } from './contexts';
 
 
 
-export default class App extends Component {
+class App extends Component {
 
     state = {
         
     }
 
     render(){
-
+        const { userAuth } = this.props
         return(
             <Router>
                 <Fragment>
@@ -31,3 +32,5 @@ export default class App extends Component {
     }
 
 }
+
+export default withUser(App)
