@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import { Form, Button, Input } from '../common'
+import { withUser } from '../contexts';
 
-export default class SigninForm extends Component {
+class SigninForm extends Component {
 
     state = {
         username: "Jimmy",
@@ -14,6 +15,7 @@ export default class SigninForm extends Component {
 
     submitForm = (event) => {
         event.preventDefault()
+        this.props.userAuth.signIn(this.state)
         if(this.props.onFormSubmit){
             this.props.onFormSubmit(this.state)
         }
@@ -31,3 +33,5 @@ export default class SigninForm extends Component {
         )
     }
 }
+
+export default withUser(SigninForm)

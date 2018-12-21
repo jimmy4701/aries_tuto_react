@@ -2,12 +2,24 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Modal, SigninForm } from '../components'
+import { withUser } from '../contexts'
 
-export default class Navbar extends Component {
+class Navbar extends Component {
 
     state = {
 
     }
+
+    componentWillReceiveProps(props){
+        console.log('NAVBAR PROPS', props)
+        this.setState({test: true})
+    }
+
+    componentDidReceiveProps(props){
+        console.log('NAVBAR PROPS 2', props)
+        this.setState({test: true})
+    }
+
 
     componentDidMount(){
         document.addEventListener('scroll', () => {
@@ -19,14 +31,20 @@ export default class Navbar extends Component {
         display_modal: !this.state.display_modal
     })
 
+    logout = () => {
+        const user = this.props.userAuth.logout()
+        this.setState({user})
+    }
+
     render(){
         const {scroll, display_modal} = this.state
-
+        const {userAuth} = this.props
+        console.log('USER AUTH NAVBAR', userAuth)
         return(
             <MainContainer scroll={scroll}>
                 <LeftPart>
                     <CustomLink main to="/">
-                        J.
+                        {userAuth.user.username ? userAuth.user.username[0] + '.' : "J."}
                     </CustomLink>
                     <CustomLink to="/projects">
                         Projets
@@ -39,9 +57,15 @@ export default class Navbar extends Component {
                     </CustomLink>
                 </LeftPart>
                 <RightPart>
-                    <NavbarItem onClick={this.toggleModal}>
-                        Connexion
-                    </NavbarItem>
+                    {userAuth.user.authenticated ?
+                        <NavbarItem onClick={this.logout}>
+                            Déconnexion
+                        </NavbarItem>
+                    :
+                        <NavbarItem onClick={this.toggleModal}>
+                            Connexion
+                        </NavbarItem>
+                    }
                     {display_modal && 
                         <Modal onClose={this.toggleModal}>
                             <SigninForm onFormSubmit={this.toggleModal}/>
@@ -52,6 +76,10 @@ export default class Navbar extends Component {
         )
     }
 }
+
+export default withUser(Navbar)
+
+
 
 const MainContainer = styled.div`
     z-index: 1000;
