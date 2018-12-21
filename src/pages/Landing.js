@@ -75,4 +75,11 @@ const VideoPartial = styled.div`
     display: inline-block;
     margin: 0.5em;
     cursor: pointer;
+
+    transition: 0.3s;
+
+    &:hover {
+        height: 10em;
+        width: 16em;
+    }
 `
