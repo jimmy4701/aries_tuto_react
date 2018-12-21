@@ -43,16 +43,16 @@ class Navbar extends Component {
         return(
             <MainContainer scroll={scroll}>
                 <LeftPart>
-                    <CustomLink main to="/">
-                        {userAuth.user.username ? userAuth.user.username[0] + '.' : "J."}
+                    <CustomLink scroll={scroll}  main to="/">
+                        <Logo src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2000px-Netflix_2015_logo.svg.png"/>
                     </CustomLink>
-                    <CustomLink to="/projects">
+                    <CustomLink scroll={scroll} to="/projects">
                         Projets
                     </CustomLink>
-                    <CustomLink to="/apropos">
+                    <CustomLink scroll={scroll} to="/apropos">
                         A propos
                     </CustomLink>
-                    <CustomLink to="/contact">
+                    <CustomLink scroll={scroll} to="/contact">
                         Contact
                     </CustomLink>
                 </LeftPart>
@@ -91,8 +91,8 @@ const MainContainer = styled.div`
     left: 0;
     right: 0;
     width: 100%;
-    background-color: ${props => props.scroll ? "white" : ""};
-    border-bottom: ${props => props.scroll ? "2px solid #dedede" : ""};
+    height: 1.5em;
+    background-color: ${props => props.scroll ? "black" : ""};
 
 `
 const LeftPart = styled.div`
@@ -108,8 +108,13 @@ const CustomLink = styled(Link)`
     margin: 0 1em;
     font-weight: ${props => props.main ? "900" : ""};
     font-size: ${props => props.main ? "1.2em" : ""};
+    color: ${props => props.scroll ? "white" : ""};
 `
 
 const NavbarItem = styled.div`
     cursor: pointer;
+`
+
+const Logo = styled.img`
+    max-height: 100%;
 `

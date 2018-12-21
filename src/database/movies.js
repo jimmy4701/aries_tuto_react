@@ -1,5 +1,6 @@
 export const movies = [
     {
+        highlight: false,
         id: "harry-potter",
         title: "Harry Potter à l'école des sorciers",
         description: "Un film sur la sorcellerie",
@@ -7,6 +8,7 @@ export const movies = [
         embed: "https://www.youtube.com/embed/7m0-X95nG98"
     },
     {
+        highlight: true,
         id: "seigneur-des-anneaux",
         title: "Seigneur des anneaux",
         description: "Un film pour les controler tous",
