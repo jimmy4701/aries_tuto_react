@@ -32,14 +32,14 @@ class Navbar extends Component {
     })
 
     logout = () => {
-        const user = this.props.userAuth.logout()
-        this.setState({user})
+        this.props.userAuth.logout()
+        this.setState({})
     }
 
     render(){
         const {scroll, display_modal} = this.state
         const {userAuth} = this.props
-        console.log('USER AUTH NAVBAR', userAuth)
+
         return(
             <MainContainer scroll={scroll}>
                 <LeftPart>
